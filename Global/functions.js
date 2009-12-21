@@ -43,7 +43,10 @@ function onStart() {
     app.data.h2WebServer.start();
     
     if (app.data.h2WebServer.isRunning(false)) {
-        writeln("H2 web server started by " + app.name + " on port:"
+        var driver = new Packages.org.h2.Driver();
+        var version = driver.connect("jdbc:h2:mem:", null).getMetaData().getDatabaseProductVersion();        
+        
+        writeln("H2 web server version:"+version+" started by " + app.name + " on port:"
                         + getProperty("h2.webport", "8082"));
     } else {
         writeln("FAILED to start H2 web server by " + app.name);
